@@ -25,5 +25,8 @@ namespace Business.Constans
         public static string MailAlreadyConfirm = "Mailiniz Zaten Onaylı, Tekrar Gönderim Yapılmadı";
         public static string MailConfirmTimeHasNotExpired = "Mail Onayını 5 Dakikada Bir Gönderebilirsiniz.";
         public static string UpdatedCompany = "Şirket Kaydı Başarıyla Güncellendi";
+        public static string AddedCurrencyAccount = "Cari Kaydı Başarıyla Eklendi";
+        public static string UpdatedCurrencyAccount = "Cari Kaydı Başarıyla Güncellendi";
+        public static string DeletedCurrencyAccount = "Cari Kaydı Başarıyla Silindi";
     }
 }
