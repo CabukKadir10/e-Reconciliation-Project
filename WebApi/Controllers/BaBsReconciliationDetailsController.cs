@@ -1,6 +1,5 @@
 ﻿using Business.Abstract;
 using Entities.Concrete;
-using Entities.Dtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,29 +7,29 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CurrencyAccountsController : ControllerBase
+    public class BaBsReconciliationDetailsController : ControllerBase
     {
-        private readonly ICurrencyAccountService _currencyAccountService;
+        private readonly IBaBsReconciliationDetailService _baBsReconciliationDetailService;
 
-        public CurrencyAccountsController(ICurrencyAccountService currencyAccountService)
+        public BaBsReconciliationDetailsController(IBaBsReconciliationDetailService baBsReconciliationDetailService)
         {
-            _currencyAccountService = currencyAccountService;
+            _baBsReconciliationDetailService = baBsReconciliationDetailService;
         }
 
         [HttpPost("addFromExcel")]
-        public IActionResult AddFromExcel(IFormFile file, int companyId)
+        public IActionResult AddFromExcel(IFormFile file, int baBsReconciliationId)
         {
-            if(file.Length > 0)
+            if (file.Length > 0)
             {
                 var fileName = Guid.NewGuid().ToString() + ".xlsx"; //dosya adı belirledik
                 var filePath = $"{Directory.GetCurrentDirectory()}/Content/{fileName}"; //dosya yolunu aldık
-                using(FileStream stream = System.IO.File.Create(filePath))
+                using (FileStream stream = System.IO.File.Create(filePath))
                 {
                     file.CopyTo(stream);
                     stream.Flush();
                 }
 
-                var result = _currencyAccountService.AddToExcel(filePath, companyId);
+                var result = _baBsReconciliationDetailService.AddToExcel(filePath, baBsReconciliationId);
                 if (result.Success)
                 {
                     return Ok(result);
@@ -42,9 +41,9 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult Add(CurrencyAccount currencyAccount)
+        public IActionResult Add(BaBsReconciliationDetail baBsReconciliationDetail)
         {
-            var result = _currencyAccountService.Add(currencyAccount);
+            var result = _baBsReconciliationDetailService.Add(baBsReconciliationDetail);
             if (result.Success)
             {
                 return Ok(result);
@@ -54,9 +53,9 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("update")]
-        public IActionResult Update(CurrencyAccount currencyAccount)
+        public IActionResult Update(BaBsReconciliationDetail baBsReconciliationDetail)
         {
-            var result = _currencyAccountService.Update(currencyAccount);
+            var result = _baBsReconciliationDetailService.Update(baBsReconciliationDetail);
             if (result.Success)
             {
                 return Ok(result);
@@ -65,10 +64,10 @@ namespace WebApi.Controllers
             return BadRequest(result.Message);
         }
 
-        [HttpDelete("delete")]
-        public IActionResult Delete(CurrencyAccount currencyAccount)
+        [HttpPost("delete")]
+        public IActionResult Delete(BaBsReconciliationDetail baBsReconciliationDetail)
         {
-            var result = _currencyAccountService.Delete(currencyAccount);
+            var result = _baBsReconciliationDetailService.Delete(baBsReconciliationDetail);
             if (result.Success)
             {
                 return Ok(result);
@@ -76,12 +75,11 @@ namespace WebApi.Controllers
 
             return BadRequest(result.Message);
         }
-
 
         [HttpGet("GetById")]
         public IActionResult GetById(int id)
         {
-            var result = _currencyAccountService.Get(id);
+            var result = _baBsReconciliationDetailService.GetById(id);
             if (result.Success)
             {
                 return Ok(result);
@@ -90,11 +88,10 @@ namespace WebApi.Controllers
             return BadRequest(result.Message);
         }
 
-
         [HttpGet("GetList")]
-        public IActionResult GetList(int companyId)
+        public IActionResult GetList(int baBsReconciliationId)
         {
-            var result = _currencyAccountService.GetList(companyId);
+            var result = _baBsReconciliationDetailService.GetList(baBsReconciliationId);
             if (result.Success)
             {
                 return Ok(result);
