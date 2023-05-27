@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constans;
+using Core.Aspects.Caching;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -15,18 +16,22 @@ namespace Business.Concrete
 {
     public class MailParameterManager : IMailParameterService
     {
+        #region Dependency
         private readonly IMailParameterDal _mailParameterDal;
 
         public MailParameterManager(IMailParameterDal mailParameterDal)
         {
             _mailParameterDal = mailParameterDal;
         }
+        #endregion
 
+        [CacheAspect(60)]
         public IDataResult<MailParameter> Get(int companyId)
         {
             return new SuccessDataResult<MailParameter>(_mailParameterDal.Get(m => m.CompanyId== companyId));
         }
 
+        [CacheRemoveAspect("IMailParameterService.Get")]
         public IResult Update(MailParameter mailParameter)
         {
             var result = Get(mailParameter.CompanyId);

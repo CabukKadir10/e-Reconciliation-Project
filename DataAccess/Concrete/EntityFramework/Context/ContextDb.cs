@@ -18,7 +18,7 @@ namespace DataAccess.Concrete.EntityFramework.Context
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseNpgsql("Host=localhost;Port=5432; Database=eReconciliationDb; UserName=postgres ; Password=1234");
-            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true); //burada postgre de hata verdiği için ekledim
             //AppContext.SetSwitch("Npgsql.DisableDateTimeInfinityConversions", true);
         }
 
