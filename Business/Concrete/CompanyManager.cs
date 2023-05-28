@@ -15,6 +15,8 @@ using Core.Aspects.AutoFac.Validation;
 using Entities.Dtos;
 using Core.Aspects.AutoFac.Transaction;
 using Core.Aspects.Caching;
+using Business.BusinessAcpects;
+using Core.Aspects.Performance;
 
 namespace Business.Concrete
 {
@@ -77,6 +79,8 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Company>>(_companyDal.GetList());
         }
 
+        [PerformanceAspect(3)]
+        [SecuredOperation("Company.Update,Admin")]
         [CacheRemoveAspect("ICompanyService.Get")]
         public IResult Update(Company company)
         {

@@ -1,6 +1,8 @@
 ﻿using Business.Abstract;
+using Business.BusinessAcpects;
 using Business.Constans;
 using Core.Aspects.Caching;
+using Core.Aspects.Performance;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -25,12 +27,15 @@ namespace Business.Concrete
         }
         #endregion
 
+        
         [CacheAspect(60)]
         public IDataResult<MailParameter> Get(int companyId)
         {
             return new SuccessDataResult<MailParameter>(_mailParameterDal.Get(m => m.CompanyId== companyId));
         }
 
+        [PerformanceAspect(3)]
+        [SecuredOperation("MailParameter.Update,Admin")]
         [CacheRemoveAspect("IMailParameterService.Get")]
         public IResult Update(MailParameter mailParameter)
         {
