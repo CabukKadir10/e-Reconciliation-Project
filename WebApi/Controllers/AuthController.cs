@@ -81,7 +81,7 @@ namespace WebApi.Controllers
                 return BadRequest(result.Message);
             }
 
-            return BadRequest("Kullanıcı pasif durumunda. Aktif etmek için yöneticinice danışın");
+            return BadRequest("Kullanıcı pasif durumunda. Aktif etmek için yöneticinize danışın");
         }
 
         [HttpGet("confirmuser")]

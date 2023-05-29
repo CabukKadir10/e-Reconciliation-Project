@@ -55,6 +55,12 @@ namespace Business.DependencyResolvers.AutoFac
             builder.RegisterType<MailTemplateManager>().As<IMailTemplateService>();
             builder.RegisterType<EfMailTemplateDal>().As<IMailTemplateDal>();
 
+            builder.RegisterType<OperationClaimManager>().As<IOperationClaimService>();
+            builder.RegisterType<EfOperationClaimDal>().As<IOperationClaimDal>();
+
+            builder.RegisterType<UserOperationClaimManager>().As<IUserOperationClaimService>();
+            builder.RegisterType<EfUserOperationClaimDal>().As<IUserOperationClaimDal>();
+
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
             //builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces().EnableInterfaceInterceptors(new ProxyGenerationOptions()

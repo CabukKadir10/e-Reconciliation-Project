@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Entities.Concrete;
+using Entities.Dtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -91,7 +92,31 @@ namespace WebApi.Controllers
         [HttpGet("GetList")]
         public IActionResult GetList(int companyId)
         {
-            var result = _baBsReconciliationService.GetList(companyId);
+            var result = _baBsReconciliationService.GetListDto(companyId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result.Message);
+        }
+
+        [HttpPost("sendReconciliationMail")]
+        public IActionResult SendReconciliationMail(BaBsReconciliationDto baBsReconciliationDto)
+        {
+            var result = _baBsReconciliationService.SendReconciliationMail(baBsReconciliationDto);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result.Message);
+        }
+
+        [HttpGet("GetByCode")]
+        public IActionResult GetByCode(string code)
+        {
+            var result = _baBsReconciliationService.GetByCode(code);
             if (result.Success)
             {
                 return Ok(result);
