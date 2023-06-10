@@ -23,8 +23,8 @@ namespace Business.Concrete
     public class CompanyManager : ICompanyService
     {
         #region dependency injection
-        //şimdi akla şu soru gelebilir biz bunu dal katmanında yaptık niye aynı şeyı buradada yazıyoruz. bunun sebebi biz service katmanında iş kuralları yazıyoruz. bunlarlar beraber kontrol etmemiz gereken şeyler de var. mesela kullanıcı giriş izni var mı(authentication), kullanıcı giriş yaptı ama buna yetkisi var mı(authorization), log işlemleri, validation işlemlerinin hepsini burada yapıyoruz.
-        private readonly ICompanyDal _companyDal; //burda direk classı değilde soyut olan interface kullanıyoruz. bunun sebebi bağımlı hale getitmemek için. interfaceler newlenmediği için bunu çağırması için contructorda referans veriyoruz. yani IcompanyDal ==> EfCompanyDal eşleştirmesi yapıyoruz. yarın bir değişiklik yapmak istediğimizde kodda tek tek düzeltmek yerine sadece referansı değiştirebiliriz.
+        
+        private readonly ICompanyDal _companyDal; 
         public CompanyManager(ICompanyDal companyDal)
         {
             _companyDal = companyDal;
